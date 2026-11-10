@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Estúdio — publicar episódio</title>
+<style>
+  :root { --bg:#f4f5f7; --card:#fff; --ink:#14161c; --mut:#6b7280; --line:#e3e6eb; --acc:#ff5a1f; --ok:#16a34a; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 15px/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  .top { height:56px; display:flex; align-items:center; gap:14px; padding:0 24px; background:#fff; border-bottom:1px solid var(--line); }
+  .logo { width:26px; height:26px; border-radius:50%; background:var(--acc); }
+  .top b { font-size:16px; } .top span { color:var(--mut); }
+  .wrap { display:grid; grid-template-columns: 1fr 360px; gap:22px; padding:26px 28px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; }
+  h2 { margin:0 0 14px; font-size:17px; }
+  label { display:block; font-size:12px; font-weight:600; color:var(--mut); text-transform:uppercase; letter-spacing:.04em; margin:14px 0 6px; }
+  input, textarea { width:100%; border:1px solid var(--line); border-radius:8px; padding:10px 12px; font:inherit; color:var(--ink); outline:none; background:#fff; }
+  input:focus, textarea:focus { border-color:var(--acc); box-shadow:0 0 0 3px #ff5a1f22; }
+  textarea { height:84px; resize:none; }
+  .drop { border:2px dashed var(--line); border-radius:10px; padding:16px; display:flex; align-items:center; gap:14px; color:var(--mut); }
+  .drop.done { border-style:solid; border-color:#bfe5cc; background:#f2fbf5; color:var(--ink); }
+  .wave { flex:1; height:34px; display:flex; align-items:center; gap:2px; }
+  .wave i { flex:1; background:#cbd2dc; border-radius:2px; }
+  .drop.done .wave i { background:var(--acc); }
+  .chap { display:flex; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); opacity:.0; transform:translateY(6px); transition:all .25s; }
+  .chap.show { opacity:1; transform:none; }
+  .chap code { color:var(--acc); font: 600 13px Menlo, monospace; }
+  .row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; }
+  .tog { width:44px; height:26px; border-radius:13px; background:#d4d8df; position:relative; cursor:pointer; transition:background .2s; }
+  .tog::after { content:''; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:#fff; transition:left .2s; box-shadow:0 1px 2px #0003; }
+  .tog.on { background:var(--acc); } .tog.on::after { left:21px; }
+  button { margin-top:18px; width:100%; height:46px; border:0; border-radius:10px; background:var(--ink); color:#fff; font:600 15px inherit; cursor:pointer; }
+  button:hover { background:#000; }
+  .bar { height:6px; border-radius:3px; background:var(--line); overflow:hidden; margin-top:12px; display:none; }
+  .bar i { display:block; height:100%; width:0; background:var(--acc); transition:width .1s linear; }
+  .toast { position:fixed; right:28px; bottom:28px; background:var(--ink); color:#fff; padding:14px 18px; border-radius:10px; display:none; gap:10px; align-items:center; }
+  .toast b { color:#4ade80; }
+</style>
+</head>
+<body>
+  <div class="top"><div class="logo"></div><b>Estúdio</b><span>/ podcast / novo episódio</span></div>
+  <div class="wrap">
+    <div class="card">
+      <h2>Publicar episódio</h2>
+      <label>Áudio do episódio</label>
+      <div class="drop" id="drop"><span id="dropTxt">Arraste o arquivo aqui</span><div class="wave" id="wave"></div></div>
+      <label>Título</label>
+      <input id="titulo" placeholder="Título do episódio">
+      <label>Descrição</label>
+      <textarea id="desc" placeholder="Sobre o que é este episódio?"></textarea>
+      <label>Capítulos (gerados da transcrição)</label>
+      <div id="caps"></div>
+    </div>
+    <div class="card">
+      <h2>Distribuição</h2>
+      <div class="row">Vídeo para YouTube (audiograma) <div class="tog" id="t1"></div></div>
+      <div class="row">Cortes verticais com legenda <div class="tog" id="t2"></div></div>
+      <div class="row">Thumbnail automática <div class="tog on" id="t3"></div></div>
+      <button id="pub">Publicar episódio</button>
+      <div class="bar" id="bar"><i id="barI"></i></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"><b>✓</b> Episódio publicado · 3 formatos gerados</div>
+<script>
+  // app real: estado muda só por eventos de verdade (clique, digitação)
+  const wave = document.getElementById('wave');
+  for (let i = 0; i < 64; i++) { const b = document.createElement('i'); b.style.height = (20 + 80 * Math.abs(Math.sin(i * 0.7) * Math.cos(i * 0.23))) + '%'; wave.appendChild(b); }
+  document.getElementById('drop').addEventListener('click', () => {
+    const d = document.getElementById('drop'); d.classList.add('done');
+    document.getElementById('dropTxt').textContent = 'episodio-01.wav · 64 s';
+    const caps = [['00:00', 'O projeto no Hospital das Clínicas'], ['00:19', 'A festa e o guardanapo'], ['00:39', 'Cinco dias para uma solução'], ['00:51', 'O esboço que virou projeto']];
+    const box = document.getElementById('caps');
+    caps.forEach((c, i) => { const el = document.createElement('div'); el.className = 'chap'; el.innerHTML = `<code>${c[0]}</code> ${c[1]}`; box.appendChild(el); setTimeout(() => el.classList.add('show'), 150 + i * 160); });
+  });
+  document.querySelectorAll('.tog').forEach(t => t.addEventListener('click', () => t.classList.toggle('on')));
+  document.getElementById('pub').addEventListener('click', () => {
+    const bar = document.getElementById('bar'), bi = document.getElementById('barI'); bar.style.display = 'block';
+    let p = 0; const iv = setInterval(() => { p += 4; bi.style.width = p + '%'; if (p >= 100) { clearInterval(iv); document.getElementById('toast').style.display = 'flex'; } }, 40);
+  });
+</script>
+</body>
+</html>

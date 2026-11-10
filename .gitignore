@@ -1,0 +1,7 @@
+# gerenciados pelo claude.ai (não editar aqui)
+synced/
+# artefatos
+*.zip
+.DS_Store
+__pycache__/
+node_modules/

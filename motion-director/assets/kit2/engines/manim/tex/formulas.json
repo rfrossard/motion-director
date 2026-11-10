@@ -1,0 +1,7 @@
+{
+ "ode": "\\ddot{x} + 2{\\color{#FF6200}\\zeta}{\\color{#58C4DD}\\omega}\\,\\dot{x} + {\\color{#58C4DD}\\omega}^{2}\\,x = {\\color{#58C4DD}\\omega}^{2}",
+ "sol": "x(t) = 1 - {\\color{#83C167}e^{-{\\color{#FF6200}\\zeta}{\\color{#58C4DD}\\omega} t}}\\left[\\cos({\\color{#58C4DD}\\omega_d} t) + \\frac{{\\color{#FF6200}\\zeta}{\\color{#58C4DD}\\omega}}{{\\color{#58C4DD}\\omega_d}}\\sin({\\color{#58C4DD}\\omega_d} t)\\right]",
+ "wd": "{\\color{#58C4DD}\\omega_d} = {\\color{#58C4DD}\\omega}\\sqrt{1-{\\color{#FF6200}\\zeta}^{2}}",
+ "env": "1 \\pm {\\color{#83C167}e^{-{\\color{#FF6200}\\zeta}{\\color{#58C4DD}\\omega} t}}",
+ "zeta": "{\\color{#FF6200}\\zeta}"
+}

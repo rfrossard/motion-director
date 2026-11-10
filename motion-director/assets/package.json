@@ -1,0 +1,28 @@
+{
+  "name": "hub-formatos",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio",
+    "still": "remotion still",
+    "render": "remotion render HubFormatos out/hub-formatos-ptbr.mp4",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/archivo": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@react-three/fiber": "9.8.2",
+    "@remotion/cli": "4.0.541",
+    "@remotion/fonts": "4.0.541",
+    "@remotion/install-whisper-cpp": "4.0.541",
+    "@remotion/three": "4.0.541",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.541",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/three": "0.187.0",
+    "typescript": "7.0.2"
+  }
+}
